@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
-import { generateFormJson } from '@/lib/gemini';
-import { validateFormJson } from '@/lib/validateJson';
-import { createGoogleForm } from '@/lib/googleForms';
+import { generateFormJson } from '../../../lib/gemini';
+import { validateFormJson } from '../../../lib/validateJson';
+import { createGoogleForm } from '../../../lib/googleForms';
 
 export async function POST(request) {
     try {
