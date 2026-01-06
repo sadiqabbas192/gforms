@@ -77,5 +77,7 @@ export async function GET(request) {
         prompt: 'consent' // force refresh token generation
     });
 
+    console.log("FINAL GOOGLE OAUTH URL:", authUrl);
+
     return redirect(authUrl);
 }
