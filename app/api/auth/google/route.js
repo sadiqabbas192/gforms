@@ -8,12 +8,12 @@ export async function GET(request) {
 
     // Callback URL must strictly match what you registered in Google Cloud Console
     // We use the same route for both initiation and callback to keep file structure minimal
-    const callbackUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google`;
+    const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google`;
 
     const oauth2Client = new google.auth.OAuth2(
         process.env.GOOGLE_CLIENT_ID,
         process.env.GOOGLE_CLIENT_SECRET,
-        callbackUrl
+        redirectUri
     );
 
     // 1. If 'code' is present, this is the callback from Google
