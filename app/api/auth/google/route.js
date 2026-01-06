@@ -8,7 +8,8 @@ export async function GET(request) {
 
     // Callback URL must strictly match what you registered in Google Cloud Console
     // We use the same route for both initiation and callback to keep file structure minimal
-    const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google`;
+    // HARDCODED to ensure exact match with Google Console (bypassing potential Env Var typos)
+    const redirectUri = 'https://gforms-two.vercel.app/api/auth/google';
 
     const oauth2Client = new google.auth.OAuth2(
         process.env.GOOGLE_CLIENT_ID,
