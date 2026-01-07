@@ -293,7 +293,7 @@ export default function Home() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-indigo-900/20 blur-[120px] rounded-full pointer-events-none transition-colors duration-500" />
 
             {/* Navbar/Header */}
-            <header className="w-full max-w-5xl flex items-center justify-between mb-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/60 rounded-2xl px-8 py-5 shadow-sm">
+            <header className="w-full max-w-5xl flex items-center justify-between mb-12 bg-slate-900/80 backdrop-blur-md border border-slate-800/60 rounded-2xl px-8 py-5 shadow-sm">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center shadow-lg shadow-yellow-900/20">
                         <Sparkles className="w-5 h-5 text-black" />
