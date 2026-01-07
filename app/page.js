@@ -238,7 +238,15 @@ export default function Home() {
     // --- Render Auth View ---
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#F0F2F5]">
+            <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[var(--background)] transition-colors duration-300">
+
+                {/* Theme Toggle (Absolute Top Right) */}
+                <div className="absolute top-6 right-6 z-20">
+                    <Button variant="ghost" onClick={toggleTheme} className="rounded-2xl w-12 h-12 p-0 flex items-center justify-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 shadow-sm transition-transform hover:scale-105 active:scale-95">
+                        {theme === 'light' ? <Moon className="w-6 h-6 text-slate-600" /> : <Sun className="w-6 h-6 text-amber-300" />}
+                    </Button>
+                </div>
+
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
                     <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-100/40 dark:bg-blue-900/20 rounded-full blur-[120px]" />
                     <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/40 dark:bg-indigo-900/20 rounded-full blur-[120px]" />
@@ -254,7 +262,7 @@ export default function Home() {
                         <LayoutTemplate className="w-8 h-8 text-white" />
                     </div>
 
-                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+                    <h1 className="text-3xl font-bold text-[var(--foreground)] mb-4 tracking-tight">
                         Form Architect AI
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 mb-10 leading-relaxed font-normal">
@@ -302,7 +310,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" onClick={toggleTheme} className="rounded-xl w-10 h-10 p-0 flex items-center justify-center">
+                    <Button variant="ghost" onClick={toggleTheme} className="rounded-xl w-10 h-10 p-0 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                         {theme === 'light' ? <Moon className="w-5 h-5 text-slate-600" /> : <Sun className="w-5 h-5 text-amber-300" />}
                     </Button>
                     <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1" />
@@ -326,7 +334,7 @@ export default function Home() {
                 >
                     <div className="bg-white dark:bg-slate-900/50 rounded-[22px] p-8 md:p-10">
                         <div className="mb-6 flex items-center justify-between">
-                            <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-3">
+                            <h2 className="text-2xl font-semibold text-[var(--foreground)] flex items-center gap-3">
                                 <FileText className="w-6 h-6 text-[#1E3A8A] dark:text-indigo-400" />
                                 <span>Describe your form</span>
                             </h2>
@@ -406,7 +414,7 @@ export default function Home() {
                             >
                                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
                                     <div>
-                                        <h3 className="text-2xl font-bold text-slate-800 flex items-center gap-3 mb-1">
+                                        <h3 className="text-2xl font-bold text-[var(--foreground)] flex items-center gap-3 mb-1">
                                             <CheckCircle2 className="w-6 h-6 text-emerald-500" />
                                             Generation Complete
                                         </h3>
@@ -424,7 +432,7 @@ export default function Home() {
                                                 <ExternalLink className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors" />
                                             </a>
                                         </div>
-                                        <div className="font-semibold text-slate-800 dark:text-slate-100">Editor Mode</div>
+                                        <div className="font-semibold text-[var(--foreground)]">Editor Mode</div>
                                         <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-3">Modify form settings & questions</div>
                                         <a href={result.edit_url} target="_blank" rel="noopener noreferrer" className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline break-all block truncate">
                                             {result.edit_url}
@@ -440,7 +448,7 @@ export default function Home() {
                                                 <ExternalLink className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors" />
                                             </a>
                                         </div>
-                                        <div className="font-semibold text-slate-800 dark:text-slate-100">Responder View</div>
+                                        <div className="font-semibold text-[var(--foreground)]">Responder View</div>
                                         <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-3">Share to collect responses</div>
                                         <a href={result.view_url} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline break-all block truncate">
                                             {result.view_url}
@@ -458,7 +466,7 @@ export default function Home() {
                                     className="modern-card rounded-3xl p-8"
                                 >
                                     <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Generated Questions</h3>
+                                        <h3 className="text-xl font-bold text-[var(--foreground)]">Generated Questions</h3>
 
                                         <div className="flex gap-2">
                                             {/* Copy Dropdown */}
