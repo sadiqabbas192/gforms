@@ -24,7 +24,7 @@ const Button = ({ children, onClick, disabled, variant = 'primary', className = 
     const baseStyle = "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
-        primary: "bg-[#6366F1] hover:bg-[#4F46E5] text-white shadow-glow-primary py-3 px-6",
+        primary: "bg-[var(--primary)] hover:bg-[#EAB308] text-black shadow-glow-primary py-3 px-6 font-bold",
         secondary: "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm py-3 px-6",
         ghost: "bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 py-2 px-4",
         link: "bg-blue-50/50 dark:bg-blue-900/20 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 py-3 px-4 w-full"
@@ -46,9 +46,11 @@ const Button = ({ children, onClick, disabled, variant = 'primary', className = 
 
 // --- Main Page ---
 
+// --- Main Page ---
+
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [theme, setTheme] = useState('light');
+    // Theme state removed - forcing dark mode by default
     const [isLoading, setIsLoading] = useState(false);
     const [loadingStep, setLoadingStep] = useState(0); // 0: Idle, 1: Start AI, 2: Questions, 3: Form, 4: Adding, 5: Done
     const [prompt, setPrompt] = useState('');
@@ -63,19 +65,9 @@ export default function Home() {
     useEffect(() => {
         const auth = document.cookie.split('; ').find(row => row.startsWith('is_authenticated='));
         if (auth) setIsAuthenticated(true);
-
-        // Theme init
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-        document.documentElement.setAttribute('data-mode', savedTheme);
     }, []);
 
-    const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-        document.documentElement.setAttribute('data-mode', newTheme);
-    };
+
 
     const simulateLoading = () => {
         setLoadingStep(1);
@@ -247,16 +239,9 @@ export default function Home() {
         return (
             <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[var(--background)] transition-colors duration-300">
 
-                {/* Theme Toggle (Absolute Top Right) */}
-                <div className="absolute top-6 right-6 z-20">
-                    <Button variant="ghost" onClick={toggleTheme} className="rounded-2xl w-12 h-12 p-0 flex items-center justify-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-700/50 shadow-sm transition-transform hover:scale-105 active:scale-95">
-                        {theme === 'light' ? <Moon className="w-6 h-6 text-slate-600" /> : <Sun className="w-6 h-6 text-amber-300" />}
-                    </Button>
-                </div>
-
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-100/40 dark:bg-blue-900/20 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/40 dark:bg-indigo-900/20 rounded-full blur-[120px]" />
+                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-900/20 rounded-full blur-[120px]" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[rgba(250,204,21,0.1)] rounded-full blur-[120px]" />
                 </div>
 
                 <motion.div
@@ -265,7 +250,7 @@ export default function Home() {
                     transition={{ duration: 0.6 }}
                     className="max-w-md w-full modern-card rounded-3xl p-10 text-center"
                 >
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#0A1F44] to-[#1E3A8A] dark:from-indigo-600 dark:to-indigo-800 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-blue-900/20 dark:shadow-indigo-900/40">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#0A1F44] to-indigo-900 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-indigo-900/40">
                         <LayoutTemplate className="w-8 h-8 text-white" />
                     </div>
 
@@ -305,23 +290,19 @@ export default function Home() {
 
             {/* Dynamic Background */}
             {/* Dynamic Background */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-indigo-100/60 dark:bg-indigo-900/20 blur-[120px] rounded-full pointer-events-none transition-colors duration-500" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-indigo-900/20 blur-[120px] rounded-full pointer-events-none transition-colors duration-500" />
 
             {/* Navbar/Header */}
             <header className="w-full max-w-5xl flex items-center justify-between mb-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/60 rounded-2xl px-8 py-5 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#0A1F44] dark:bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20 dark:shadow-indigo-900/20">
-                        <Sparkles className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center shadow-lg shadow-yellow-900/20">
+                        <Sparkles className="w-5 h-5 text-black" />
                     </div>
-                    <span className="font-bold text-slate-800 dark:text-slate-100 text-xl tracking-tight">Form Architect</span>
+                    <span className="font-bold text-slate-100 text-xl tracking-tight">Form Architect</span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" onClick={toggleTheme} className="rounded-xl w-10 h-10 p-0 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                        {theme === 'light' ? <Moon className="w-5 h-5 text-slate-600" /> : <Sun className="w-5 h-5 text-amber-300" />}
-                    </Button>
-                    <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1" />
-                    <Button variant="ghost" className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl" onClick={() => {
+                    <Button variant="ghost" className="text-sm font-medium text-slate-300 hover:bg-slate-800 rounded-xl" onClick={() => {
                         document.cookie = "is_authenticated=; Max-Age=0; path=/;";
                         window.location.reload();
                     }}>
@@ -339,19 +320,19 @@ export default function Home() {
                     layout
                     className={`modern-card rounded-3xl p-1 transition-all duration-300 ${isFocused ? 'ring-2 ring-indigo-500/20 dark:ring-indigo-500/40 shadow-xl' : ''}`}
                 >
-                    <div className="bg-white dark:bg-slate-900/50 rounded-[22px] p-8 md:p-10 border border-slate-100 dark:border-transparent">
+                    <div className="bg-slate-900/50 rounded-[22px] p-8 md:p-10 border border-transparent">
                         <div className="mb-6 flex items-center justify-between">
                             <h2 className="text-2xl font-semibold text-[var(--foreground)] flex items-center gap-3">
-                                <FileText className="w-6 h-6 text-[#1E3A8A] dark:text-indigo-400" />
+                                <FileText className="w-6 h-6 text-indigo-400" />
                                 <span>Describe your form</span>
                             </h2>
-                            <div className="text-xs font-semibold px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-100 dark:border-indigo-800">
+                            <div className="text-xs font-semibold px-3 py-1 bg-yellow-900/30 text-[var(--primary)] rounded-full border border-yellow-800/50">
                                 AI Powered v2.5
                             </div>
                         </div>
 
                         <textarea
-                            className="w-full h-40 bg-white border-2 border-slate-100 dark:bg-slate-950/50 dark:border-transparent rounded-xl p-4 text-lg text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none outline-none leading-relaxed focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-100 dark:focus:border-indigo-900 transition-colors"
+                            className="w-full h-40 bg-slate-950/50 rounded-xl p-4 text-lg text-slate-200 placeholder-slate-500 resize-none outline-none leading-relaxed border border-transparent focus:bg-slate-900 focus:border-indigo-900 transition-colors"
                             placeholder="e.g., Create a 10-question quiz about Renaissance Art history for college students. Make it challenging."
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
@@ -366,7 +347,7 @@ export default function Home() {
                                 <button
                                     key={index}
                                     onClick={() => setPrompt(sample)}
-                                    className="text-left p-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 dark:bg-transparent dark:border-slate-700/50 dark:hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 group"
+                                    className="text-left p-4 rounded-xl border border-slate-700/50 hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-400 hover:text-slate-200 group"
                                 >
                                     <span className="line-clamp-2">{sample}</span>
                                 </button>

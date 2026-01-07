@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* Base: Clean White/Indigo Tint */
-  --background: #F8FAFC;
-  /* Slate-50 - Much cleaner than F0F2F5 */
-  --foreground: #0F172A;
-  /* Slate-900 */
+  /* Base: Deep Dark Blue (Always Dark) */
+  --background: #0B0F19;
+  --foreground: #E5E7EB;
+  /* Light Gray text */
 
-  /* Primary Accent: #6366F1 (Indigo) */
-  --primary: #6366F1;
-  --primary-foreground: #ffffff;
+  /* Primary Accent: #FACC15 (Punchy Golden Yellow) */
+  --primary: #FACC15;
+  --primary-foreground: #000000;
+  /* Black text on yellow */
 
-  /* Use White for Cards */
-  --card: #ffffff;
-  --card-foreground: #0F172A;
+  /* Card Surfaces: #111827 */
+  --card: #111827;
+  --card-foreground: #E5E7EB;
 
-  --border: #E2E8F0;
-  /* Slate-200 */
-  --input: #ffffff;
-  --ring: #6366F1;
+  --border: #1E293B;
+  --input: #1F2933;
+  --ring: #FACC15;
 }
 
 @theme inline {
@@ -33,35 +32,12 @@
   --color-ring: var(--ring);
 }
 
-/* Dark Mode Variables */
-:root[data-mode="dark"] {
-  /* Dark Palette: #0B0F19 background */
-  --background: #0B0F19;
-  --foreground: #E5E7EB;
-  /* Light Gray text */
-
-  /* Primary Accent: #818CF8 (Softer Indigo) */
-  --primary: #818CF8;
-  --primary-foreground: #ffffff;
-
-  /* Card Surfaces: #111827 / #1F2933 */
-  --card: #111827;
-  --card-foreground: #E5E7EB;
-
-  --border: #1E293B;
-  --input: #1F2933;
-  /* Darker input bg */
-  --ring: #818CF8;
-}
-
 /* Base Theme */
 body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   antialiased: true;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  /* Smooth Transition */
 }
 
 /* Custom Scrollbar */
@@ -75,46 +51,31 @@ textarea::-webkit-scrollbar-track {
 
 textarea::-webkit-scrollbar-thumb {
   background: var(--border);
-  /* Adaptive scrollbar */
   border-radius: 4px;
 }
 
 textarea::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #334155;
 }
 
 /* Modern Clean Card Utility */
 .modern-card {
   background: var(--card);
   color: var(--card-foreground);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  /* Subtle border */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
 }
 
-/* Dark Mode Specific Card Tweaks (Glows) */
-:root[data-mode="dark"] .modern-card {
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  /* Very subtle light border */
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
-  /* Deeper shadow */
-}
-
 .modern-card:hover {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.1), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  /* Golden Glow */
+  border-color: rgba(250, 204, 21, 0.2);
   transform: translateY(-2px);
-}
-
-:root[data-mode="dark"] .modern-card:hover {
-  box-shadow: 0 0 15px rgba(129, 140, 248, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  /* Subtle Indigo Glow */
 }
 
 /* Premium Glow Utilities */
 .shadow-glow-primary {
-  box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.1), 0 2px 4px -1px rgba(99, 102, 241, 0.06);
-}
-
-:root[data-mode="dark"] .shadow-glow-primary {
-  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.2), 0 10px 30px rgba(129, 140, 248, 0.15);
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4), 0 0 20px rgba(250, 204, 21, 0.3);
 }
