@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  /* Base: #FFFFFF, #F0F2F5 */
-  --background: #F0F2F5;
-  --foreground: #0f172a;
-  /* Slate 900 for main text */
+  /* Base: Clean White/Indigo Tint */
+  --background: #F8FAFC;
+  /* Slate-50 - Much cleaner than F0F2F5 */
+  --foreground: #0F172A;
+  /* Slate-900 */
 
   /* Primary Accent: #6366F1 (Indigo) */
   --primary: #6366F1;
@@ -12,12 +13,12 @@
 
   /* Use White for Cards */
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #0F172A;
 
-  --border: #e2e8f0;
+  --border: #E2E8F0;
+  /* Slate-200 */
   --input: #ffffff;
   --ring: #6366F1;
-  /* Indigo */
 }
 
 @theme inline {
