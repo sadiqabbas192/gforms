@@ -235,6 +235,13 @@ export default function Home() {
         "Done! 🎉"
     ];
 
+    const samplePrompts = [
+        "Create a 10 question MCQ quiz on Python basics",
+        "Create a 15 question quiz on DBMS with easy to medium difficulty",
+        "Create 50 MCQ questions on Operating Systems and add 30 randomly",
+        "Create a quiz with exactly 20 MCQs on Data Structures"
+    ];
+
     // --- Render Auth View ---
     if (!isAuthenticated) {
         return (
@@ -352,6 +359,19 @@ export default function Home() {
                             onBlur={() => setIsFocused(false)}
                             disabled={isLoading}
                         />
+
+                        {/* Sample Prompts Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                            {samplePrompts.map((sample, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setPrompt(sample)}
+                                    className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 group"
+                                >
+                                    <span className="line-clamp-2">{sample}</span>
+                                </button>
+                            ))}
+                        </div>
 
                         {/* Center Button and Loading State */}
                         <div className="mt-8 flex flex-col items-center">
