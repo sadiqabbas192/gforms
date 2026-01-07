@@ -12,7 +12,9 @@ import {
     LogOut,
     Loader2,
     Zap,
-    LayoutTemplate
+    LayoutTemplate,
+    Moon,
+    Sun
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -22,10 +24,10 @@ const Button = ({ children, onClick, disabled, variant = 'primary', className = 
     const baseStyle = "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed";
 
     const variants = {
-        primary: "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-900/20 py-3 px-6",
-        secondary: "bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 py-3 px-6",
-        ghost: "bg-transparent hover:bg-slate-800/50 text-slate-400 hover:text-white py-2 px-4",
-        link: "bg-white/5 hover:bg-white/10 text-emerald-400 border border-emerald-500/20 py-3 px-4 w-full"
+        primary: "bg-[#6366F1] hover:bg-[#4F46E5] text-white shadow-glow-primary py-3 px-6",
+        secondary: "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm py-3 px-6",
+        ghost: "bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 py-2 px-4",
+        link: "bg-blue-50/50 dark:bg-blue-900/20 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 py-3 px-4 w-full"
     };
 
     return (
@@ -46,6 +48,7 @@ const Button = ({ children, onClick, disabled, variant = 'primary', className = 
 
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [theme, setTheme] = useState('light');
     const [isLoading, setIsLoading] = useState(false);
     const [loadingStep, setLoadingStep] = useState(0); // 0: Idle, 1: Start AI, 2: Questions, 3: Form, 4: Adding, 5: Done
     const [prompt, setPrompt] = useState('');
@@ -60,7 +63,19 @@ export default function Home() {
     useEffect(() => {
         const auth = document.cookie.split('; ').find(row => row.startsWith('is_authenticated='));
         if (auth) setIsAuthenticated(true);
+
+        // Theme init
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-mode', savedTheme);
     }, []);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        document.documentElement.setAttribute('data-mode', newTheme);
+    };
 
     const simulateLoading = () => {
         setLoadingStep(1);
@@ -112,7 +127,7 @@ export default function Home() {
                         particleCount: 150,
                         spread: 70,
                         origin: { y: 0.6 },
-                        colors: ['#a855f7', '#6366f1', '#ec4899']
+                        colors: ['#0A1F44', '#6366F1', '#EC4899', '#10B981']
                     });
                 }, 800);
             } else {
@@ -223,45 +238,44 @@ export default function Home() {
     // --- Render Auth View ---
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-                {/* Background Gradients */}
+            <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#F0F2F5]">
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-900/20 rounded-full blur-[120px]" />
+                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-100/40 dark:bg-blue-900/20 rounded-full blur-[120px]" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-100/40 dark:bg-indigo-900/20 rounded-full blur-[120px]" />
                 </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="max-w-md w-full glass rounded-3xl p-8 border border-white/10 text-center shadow-2xl"
+                    className="max-w-md w-full modern-card rounded-3xl p-10 text-center"
                 >
-                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-purple-500/25">
+                    <div className="w-16 h-16 bg-gradient-to-br from-[#0A1F44] to-[#1E3A8A] dark:from-indigo-600 dark:to-indigo-800 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-blue-900/20 dark:shadow-indigo-900/40">
                         <LayoutTemplate className="w-8 h-8 text-white" />
                     </div>
 
-                    <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 mb-3">
+                    <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
                         Form Architect AI
                     </h1>
-                    <p className="text-slate-400 mb-8 leading-relaxed">
+                    <p className="text-slate-500 dark:text-slate-400 mb-10 leading-relaxed font-normal">
                         Transform your ideas into production-ready Google Forms instantly using advanced Gemini AI.
                     </p>
 
                     <Button
                         onClick={() => window.location.href = '/api/auth/google'}
-                        className="w-full gap-3 group"
+                        className="w-full gap-3 group rounded-full"
                     >
-                        <span className="text-lg">Connect Google Account</span>
+                        <span className="text-lg font-medium">Connect Google Account</span>
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
 
-                    <div className="mt-8 pt-8 border-t border-white/5 flex justify-center gap-6 text-slate-500 text-sm">
+                    <div className="mt-10 pt-8 border-t border-slate-100 flex justify-center gap-8 text-slate-400 text-xs font-medium uppercase tracking-wider">
                         <div className="flex items-center gap-2">
-                            <Zap className="w-4 h-4" />
+                            <Zap className="w-4 h-4 text-blue-500" />
                             <span>Instant Gen</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <CheckCircle2 className="w-4 h-4" />
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                             <span>Auto Quiz</span>
                         </div>
                     </div>
@@ -272,49 +286,57 @@ export default function Home() {
 
     // --- Render App View ---
     return (
-        <div className="min-h-screen p-4 md:p-8 relative overflow-hidden flex flex-col items-center">
+        <div className="min-h-screen p-4 md:p-8 relative overflow-hidden flex flex-col items-center transition-colors duration-300">
 
             {/* Dynamic Background */}
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#0f172a] to-[#0f172a]" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
+            {/* Dynamic Background */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-indigo-100/60 dark:bg-indigo-900/20 blur-[120px] rounded-full pointer-events-none transition-colors duration-500" />
 
             {/* Navbar/Header */}
-            <header className="w-full max-w-4xl flex items-center justify-between mb-12 glass rounded-2xl px-6 py-4">
+            <header className="w-full max-w-5xl flex items-center justify-between mb-12 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/60 rounded-2xl px-8 py-5 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                    <div className="w-10 h-10 bg-[#0A1F44] dark:bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/20 dark:shadow-indigo-900/20">
                         <Sparkles className="w-5 h-5 text-white" />
                     </div>
-                    <span className="font-bold text-slate-100 tracking-tight">Form Architect</span>
+                    <span className="font-bold text-slate-800 dark:text-slate-100 text-xl tracking-tight">Form Architect</span>
                 </div>
-                <Button variant="ghost" className="text-xs" onClick={() => {
-                    document.cookie = "is_authenticated=; Max-Age=0; path=/;";
-                    window.location.reload();
-                }}>
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Sign Out
-                </Button>
+
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost" onClick={toggleTheme} className="rounded-xl w-10 h-10 p-0 flex items-center justify-center">
+                        {theme === 'light' ? <Moon className="w-5 h-5 text-slate-600" /> : <Sun className="w-5 h-5 text-amber-300" />}
+                    </Button>
+                    <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1" />
+                    <Button variant="ghost" className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl" onClick={() => {
+                        document.cookie = "is_authenticated=; Max-Age=0; path=/;";
+                        window.location.reload();
+                    }}>
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                    </Button>
+                </div>
             </header>
+
 
             <main className="w-full max-w-3xl relative z-10 flex flex-col gap-6">
 
                 {/* Input Card */}
                 <motion.div
                     layout
-                    className={`glass rounded-3xl p-1 transition-all duration-300 ${isFocused ? 'ring-2 ring-purple-500/50 shadow-2xl shadow-purple-900/20' : ''}`}
+                    className={`modern-card rounded-3xl p-1 transition-all duration-300 ${isFocused ? 'ring-2 ring-indigo-500/20 dark:ring-indigo-500/40 shadow-xl' : ''}`}
                 >
-                    <div className="bg-slate-950/50 rounded-[22px] p-6 md:p-8">
+                    <div className="bg-white dark:bg-slate-900/50 rounded-[22px] p-8 md:p-10">
                         <div className="mb-6 flex items-center justify-between">
-                            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                                <FileText className="w-5 h-5 text-purple-400" />
-                                <span className="text-lg">Describe your form</span>
+                            <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-3">
+                                <FileText className="w-6 h-6 text-[#1E3A8A] dark:text-indigo-400" />
+                                <span>Describe your form</span>
                             </h2>
-                            <div className="text-xs font-medium px-3 py-1 bg-purple-500/10 text-purple-300 rounded-full border border-purple-500/20">
+                            <div className="text-xs font-semibold px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-100 dark:border-indigo-800">
                                 AI Powered v2.5
                             </div>
                         </div>
 
                         <textarea
-                            className="w-full h-48 bg-transparent text-lg text-slate-200 placeholder-slate-600 resize-none outline-none leading-relaxed"
+                            className="w-full h-40 bg-slate-50 dark:bg-slate-950/50 rounded-xl p-4 text-lg text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none outline-none leading-relaxed border border-transparent focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-100 dark:focus:border-indigo-900 transition-colors"
                             placeholder="e.g., Create a 10-question quiz about Renaissance Art history for college students. Make it challenging."
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
@@ -326,9 +348,9 @@ export default function Home() {
                         {/* Center Button and Loading State */}
                         <div className="mt-8 flex flex-col items-center">
                             {isLoading ? (
-                                <div className="flex flex-col items-center gap-3">
+                                <div className="flex flex-col items-center gap-4">
                                     <div className="relative">
-                                        <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+                                        <Loader2 className="w-8 h-8 animate-spin text-[#1E3A8A]" />
                                     </div>
                                     <AnimatePresence mode="wait">
                                         <motion.p
@@ -336,7 +358,7 @@ export default function Home() {
                                             initial={{ opacity: 0, y: 5 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: -5 }}
-                                            className="text-slate-300 font-medium"
+                                            className="text-slate-500 dark:text-slate-400 font-medium"
                                         >
                                             {loadingMessages[loadingStep - 1] || "Processing..."}
                                         </motion.p>
@@ -346,7 +368,7 @@ export default function Home() {
                                 <Button
                                     onClick={handleGenerate}
                                     disabled={!prompt.trim()}
-                                    className="w-full md:w-auto px-8 relative overflow-hidden group"
+                                    className="w-full md:w-auto px-10 py-4 text-lg rounded-full shadow-xl shadow-blue-900/10 dark:shadow-indigo-900/20 hover:shadow-blue-900/20"
                                 >
                                     <span className="flex items-center gap-2">
                                         <Sparkles className="w-5 h-5 group-hover:rotate-12 transition-transform" />
@@ -378,53 +400,49 @@ export default function Home() {
                     {result && (
                         <>
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                                initial={{ opacity: 0, scale: 0.98, y: 10 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                                className="glass rounded-3xl p-8 border border-emerald-500/30 relative overflow-hidden"
+                                className="modern-card rounded-3xl p-8 border-t-4 border-t-emerald-500 relative overflow-hidden"
                             >
-                                {/* Success Background Effect */}
-                                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500" />
-                                <div className="absolute -top-20 -right-20 w-40 h-40 bg-emerald-500/20 rounded-full blur-[60px]" />
-
                                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
                                     <div>
-                                        <h3 className="text-2xl font-bold text-white flex items-center gap-3 mb-1">
-                                            <CheckCircle2 className="w-6 h-6 text-emerald-400" />
+                                        <h3 className="text-2xl font-bold text-slate-800 flex items-center gap-3 mb-1">
+                                            <CheckCircle2 className="w-6 h-6 text-emerald-500" />
                                             Generation Complete
                                         </h3>
-                                        <p className="text-slate-400 text-sm ml-9">Your Google Form is ready for use.</p>
+                                        <p className="text-slate-500 text-sm ml-9">Your Google Form is ready for use.</p>
                                     </div>
                                 </div>
 
                                 <div className="grid md:grid-cols-2 gap-4">
-                                    <div className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-purple-500/50 rounded-2xl p-4 transition-all duration-300">
-                                        <div className="flex items-center justify-between mb-3">
-                                            <div className="bg-purple-500/20 p-2 rounded-lg text-purple-400">
+                                    <div className="group bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-500/50 hover:shadow-md rounded-2xl p-5 transition-all duration-300">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <div className="bg-indigo-50 dark:bg-indigo-900/30 p-2.5 rounded-xl text-indigo-600 dark:text-indigo-400">
                                                 <FileText className="w-5 h-5" />
                                             </div>
                                             <a href={result.edit_url} target="_blank" rel="noopener noreferrer">
-                                                <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-purple-400 transition-colors" />
+                                                <ExternalLink className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors" />
                                             </a>
                                         </div>
-                                        <div className="font-semibold text-slate-200">Editor Mode</div>
-                                        <div className="text-xs text-slate-500 mt-1 mb-2">Modify form setting & questions</div>
-                                        <a href={result.edit_url} target="_blank" rel="noopener noreferrer" className="text-xs text-purple-400 hover:underline break-all block">
+                                        <div className="font-semibold text-slate-800 dark:text-slate-100">Editor Mode</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-3">Modify form settings & questions</div>
+                                        <a href={result.edit_url} target="_blank" rel="noopener noreferrer" className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline break-all block truncate">
                                             {result.edit_url}
                                         </a>
                                     </div>
 
-                                    <div className="group bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-emerald-500/50 rounded-2xl p-4 transition-all duration-300">
-                                        <div className="flex items-center justify-between mb-3">
-                                            <div className="bg-emerald-500/20 p-2 rounded-lg text-emerald-400">
+                                    <div className="group bg-slate-50 dark:bg-slate-900/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-500/50 hover:shadow-md rounded-2xl p-5 transition-all duration-300">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <div className="bg-emerald-50 dark:bg-emerald-900/30 p-2.5 rounded-xl text-emerald-600 dark:text-emerald-400">
                                                 <Eye className="w-5 h-5" />
                                             </div>
                                             <a href={result.view_url} target="_blank" rel="noopener noreferrer">
-                                                <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors" />
+                                                <ExternalLink className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors" />
                                             </a>
                                         </div>
-                                        <div className="font-semibold text-slate-200">Responder View</div>
-                                        <div className="text-xs text-slate-500 mt-1 mb-2">Share to collect responses</div>
-                                        <a href={result.view_url} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-400 hover:underline break-all block">
+                                        <div className="font-semibold text-slate-800 dark:text-slate-100">Responder View</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-3">Share to collect responses</div>
+                                        <a href={result.view_url} target="_blank" rel="noopener noreferrer" className="text-xs text-emerald-600 dark:text-emerald-400 hover:underline break-all block truncate">
                                             {result.view_url}
                                         </a>
                                     </div>
@@ -437,23 +455,23 @@ export default function Home() {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="glass rounded-3xl p-8 border border-white/10"
+                                    className="modern-card rounded-3xl p-8"
                                 >
                                     <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-xl font-bold text-white">Generated Questions</h3>
+                                        <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100">Generated Questions</h3>
 
                                         <div className="flex gap-2">
                                             {/* Copy Dropdown */}
                                             <div className="relative">
-                                                <Button variant="secondary" onClick={() => setShowCopyOptions(!showCopyOptions)} className="text-xs py-2 px-3 h-auto">
+                                                <Button variant="secondary" onClick={() => setShowCopyOptions(!showCopyOptions)} className="text-xs py-2 px-4 h-auto rounded-lg">
                                                     Copy
                                                 </Button>
                                                 {showCopyOptions && (
-                                                    <div className="absolute right-0 top-full mt-2 w-48 bg-slate-800 border border-slate-700 rounded-xl shadow-xl z-20 overflow-hidden">
-                                                        <button onClick={() => handleCopy(true)} className="w-full text-left px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors">
+                                                    <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-20 overflow-hidden">
+                                                        <button onClick={() => handleCopy(true)} className="w-full text-left px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
                                                             With Answers
                                                         </button>
-                                                        <button onClick={() => handleCopy(false)} className="w-full text-left px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors border-t border-slate-700">
+                                                        <button onClick={() => handleCopy(false)} className="w-full text-left px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors border-t border-slate-100 dark:border-slate-700">
                                                             Without Answers
                                                         </button>
                                                     </div>
@@ -462,15 +480,15 @@ export default function Home() {
 
                                             {/* Download Dropdown */}
                                             <div className="relative">
-                                                <Button variant="secondary" onClick={() => setShowDownloadOptions(!showDownloadOptions)} className="text-xs py-2 px-3 h-auto">
+                                                <Button variant="secondary" onClick={() => setShowDownloadOptions(!showDownloadOptions)} className="text-xs py-2 px-4 h-auto rounded-lg">
                                                     Download PDF
                                                 </Button>
                                                 {showDownloadOptions && (
-                                                    <div className="absolute right-0 top-full mt-2 w-48 bg-slate-800 border border-slate-700 rounded-xl shadow-xl z-20 overflow-hidden">
-                                                        <button onClick={() => handleDownloadPDF(true)} className="w-full text-left px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors">
+                                                    <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl z-20 overflow-hidden">
+                                                        <button onClick={() => handleDownloadPDF(true)} className="w-full text-left px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors">
                                                             With Answers
                                                         </button>
-                                                        <button onClick={() => handleDownloadPDF(false)} className="w-full text-left px-4 py-3 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors border-t border-slate-700">
+                                                        <button onClick={() => handleDownloadPDF(false)} className="w-full text-left px-4 py-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-colors border-t border-slate-100 dark:border-slate-700">
                                                             Without Answers
                                                         </button>
                                                     </div>
@@ -479,7 +497,7 @@ export default function Home() {
                                         </div>
                                     </div>
 
-                                    <div className="bg-slate-950/50 rounded-2xl p-6 font-mono text-sm text-slate-300 leading-relaxed whitespace-pre-wrap border border-white/5 overflow-x-auto max-h-[500px] overflow-y-auto">
+                                    <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-6 font-mono text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-wrap border border-slate-100 dark:border-slate-800 overflow-x-auto max-h-[500px] overflow-y-auto">
                                         {formatQuestionsText(true)}
                                     </div>
                                 </motion.div>
