@@ -56,8 +56,6 @@ export async function GET(request) {
             }
 
             // successfully logged in, redirect to home
-            return redirect('/');
-
         } catch (error) {
             console.error("OAuth Token Exchange Error:", error);
             return Response.json({
@@ -66,6 +64,9 @@ export async function GET(request) {
                 redirectUriUsed: redirectUri // Useful for debugging mismatch errors
             }, { status: 500 });
         }
+
+        // redirect() throws a customized error, so it must be outside try/catch
+        return redirect('/');
     }
 
     // 2. If 'code' is NOT present, initiate the OAuth flow
