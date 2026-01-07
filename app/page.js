@@ -339,7 +339,7 @@ export default function Home() {
                     layout
                     className={`modern-card rounded-3xl p-1 transition-all duration-300 ${isFocused ? 'ring-2 ring-indigo-500/20 dark:ring-indigo-500/40 shadow-xl' : ''}`}
                 >
-                    <div className="bg-white dark:bg-slate-900/50 rounded-[22px] p-8 md:p-10">
+                    <div className="bg-white dark:bg-slate-900/50 rounded-[22px] p-8 md:p-10 border border-slate-100 dark:border-transparent">
                         <div className="mb-6 flex items-center justify-between">
                             <h2 className="text-2xl font-semibold text-[var(--foreground)] flex items-center gap-3">
                                 <FileText className="w-6 h-6 text-[#1E3A8A] dark:text-indigo-400" />
@@ -351,7 +351,7 @@ export default function Home() {
                         </div>
 
                         <textarea
-                            className="w-full h-40 bg-slate-50 dark:bg-slate-950/50 rounded-xl p-4 text-lg text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none outline-none leading-relaxed border border-transparent focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-100 dark:focus:border-indigo-900 transition-colors"
+                            className="w-full h-40 bg-white border-2 border-slate-100 dark:bg-slate-950/50 dark:border-transparent rounded-xl p-4 text-lg text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 resize-none outline-none leading-relaxed focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-100 dark:focus:border-indigo-900 transition-colors"
                             placeholder="e.g., Create a 10-question quiz about Renaissance Art history for college students. Make it challenging."
                             value={prompt}
                             onChange={(e) => setPrompt(e.target.value)}
@@ -366,7 +366,7 @@ export default function Home() {
                                 <button
                                     key={index}
                                     onClick={() => setPrompt(sample)}
-                                    className="text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 group"
+                                    className="text-left p-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 dark:bg-transparent dark:border-slate-700/50 dark:hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 group"
                                 >
                                     <span className="line-clamp-2">{sample}</span>
                                 </button>
