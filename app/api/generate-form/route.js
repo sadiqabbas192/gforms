@@ -44,7 +44,9 @@ export async function POST(request) {
         // 7. Success Response
         return Response.json({
             status: 'success',
-            ...result
+            ...result,
+            form_title: formData.form_title,
+            questions: formData.questions
         });
 
     } catch (error) {
