@@ -60,7 +60,11 @@ export async function GET(request) {
 
         } catch (error) {
             console.error("OAuth Token Exchange Error:", error);
-            return Response.json({ error: "Failed to authenticate with Google." }, { status: 500 });
+            return Response.json({
+                error: "Failed to authenticate with Google.",
+                details: error.message,
+                redirectUriUsed: redirectUri // Useful for debugging mismatch errors
+            }, { status: 500 });
         }
     }
 
