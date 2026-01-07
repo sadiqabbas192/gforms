@@ -16,6 +16,7 @@ import {
     Moon,
     Sun
 } from 'lucide-react';
+import Image from 'next/image';
 import confetti from 'canvas-confetti';
 
 // --- Components ---
@@ -250,8 +251,16 @@ export default function Home() {
                     transition={{ duration: 0.6 }}
                     className="max-w-md w-full modern-card rounded-3xl p-10 text-center"
                 >
-                    <div className="w-16 h-16 bg-gradient-to-br from-[#0A1F44] to-indigo-900 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-indigo-900/40">
-                        <LayoutTemplate className="w-8 h-8 text-white" />
+                    <div className="w-24 h-24 bg-gradient-to-br from-[#0A1F44] to-indigo-900 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-indigo-900/50 p-4">
+                        <div className="relative w-full h-full">
+                            <Image
+                                src="/logo.png"
+                                alt="Form Architect Logo"
+                                fill
+                                className="object-contain drop-shadow-lg"
+                                priority
+                            />
+                        </div>
                     </div>
 
                     <h1 className="text-3xl font-bold text-[var(--foreground)] mb-4 tracking-tight">
@@ -295,8 +304,13 @@ export default function Home() {
             {/* Navbar/Header */}
             <header className="w-full max-w-5xl flex items-center justify-between mb-12 bg-slate-900/80 backdrop-blur-md border border-slate-800/60 rounded-2xl px-8 py-5 shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[var(--primary)] rounded-xl flex items-center justify-center shadow-lg shadow-yellow-900/20">
-                        <Sparkles className="w-5 h-5 text-black" />
+                    <div className="relative w-10 h-10">
+                        <Image
+                            src="/logo.png"
+                            alt="Logo"
+                            fill
+                            className="object-contain"
+                        />
                     </div>
                     <span className="font-bold text-slate-100 text-xl tracking-tight">Form Architect</span>
                 </div>
