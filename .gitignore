@@ -40,3 +40,6 @@ env.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#logo
+logos/favicon_io.zip
