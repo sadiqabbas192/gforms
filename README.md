@@ -1,5 +1,9 @@
 # 🚀 Prompt → Google Form (Agentic AI)
 
+![Stars](https://img.shields.io/github/stars/sadiqabbas192/gforms)
+![Forks](https://img.shields.io/github/forks/sadiqabbas192/gforms)
+![License](https://img.shields.io/github/license/sadiqabbas192/gforms)
+
 Create **Google Forms instantly using natural language prompts**.  
 This open-source **Agentic AI project** converts plain English instructions into **fully functional Google Forms quizzes (MCQs)** — created **directly in your Google account**.
 
