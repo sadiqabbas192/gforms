@@ -361,6 +361,24 @@ export default function Home() {
                             </div>
                         </div>
 
+                        {/* Sample Prompts Grid - Moved Top */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+                            {[
+                                "Create a customer feedback survey for a coffee shop",
+                                "Generate a 10-question hard quiz on World War II",
+                                "Create a registration form for a coding workshop",
+                                "Make a satisfaction survey for a hotel stay (Likert scale)"
+                            ].map((sample, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setPrompt(sample)}
+                                    className="text-left p-6 rounded-2xl bg-slate-950 border border-slate-800 hover:border-slate-600 hover:bg-slate-900 transition-all duration-200 text-sm text-slate-400 hover:text-slate-200 group flex flex-col justify-between h-32"
+                                >
+                                    <span className="line-clamp-3 leading-relaxed">{sample}</span>
+                                </button>
+                            ))}
+                        </div>
+
                         <textarea
                             className="w-full h-40 bg-slate-950/50 rounded-xl p-4 text-lg text-slate-200 placeholder-slate-500 resize-none outline-none leading-relaxed border border-transparent focus:bg-slate-900 focus:border-indigo-900 transition-colors"
                             placeholder="e.g., Create a 10-question quiz about Renaissance Art history for college students. Make it challenging."
@@ -370,19 +388,6 @@ export default function Home() {
                             onBlur={() => setIsFocused(false)}
                             disabled={isLoading}
                         />
-
-                        {/* Sample Prompts Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-                            {samplePrompts.map((sample, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => setPrompt(sample)}
-                                    className="text-left p-4 rounded-xl border border-slate-700/50 hover:bg-slate-800/50 transition-all duration-200 text-sm text-slate-400 hover:text-slate-200 group"
-                                >
-                                    <span className="line-clamp-2">{sample}</span>
-                                </button>
-                            ))}
-                        </div>
 
                         {/* Center Button and Loading State */}
                         <div className="mt-8 flex flex-col items-center">
