@@ -96,7 +96,8 @@ export async function POST(request) {
         if (isMergeMode) {
             const safeFixed = fixed_questions.map((q, i) => {
                 // Basic validation for fixed questions to prevent errors
-                if (!q.question || !Array.isArray(q.options) || q.options.length !== 4 || typeof q.correct_option_index !== 'number') {
+                // Basic validation for fixed questions to prevent errors
+                if (!q.question) {
                     throw new Error(`Fixed question at index ${i} is invalid.`);
                 }
                 return q;

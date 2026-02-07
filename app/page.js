@@ -147,12 +147,20 @@ export default function Home() {
     const formatQuestionsText = (withAnswers) => {
         if (!result || !result.questions) return '';
         return result.questions.map((q, i) => {
-            let text = `Q.${i + 1} ${q.question}\n`;
-            q.options.forEach((opt, idx) => {
-                const label = String.fromCharCode(65 + idx); // A, B, C...
-                text += `${label}. ${opt}\n`;
-            });
-            if (withAnswers) {
+            let text = `Q.${i + 1} ${q.question} [${q.type}]\n`;
+
+            if (q.type === 'text') {
+                text += `[Short Answer Space]\n`;
+            } else if (q.type === 'paragraph') {
+                text += `[Long Answer Space]\n`;
+            } else if ((q.type === 'radio' || q.type === 'checkbox') && q.options) {
+                q.options.forEach((opt, idx) => {
+                    const label = String.fromCharCode(65 + idx); // A, B, C...
+                    text += `${label}. ${opt}\n`;
+                });
+            }
+
+            if (withAnswers && (q.type === 'radio') && typeof q.correct_option_index === 'number') {
                 const correctOpt = q.options[q.correct_option_index];
                 const correctLabel = String.fromCharCode(65 + q.correct_option_index);
                 text += `Correct Answer - <${correctLabel}> ${correctOpt}\n`;
@@ -189,19 +197,27 @@ export default function Home() {
                 y = 10;
             }
 
-            const questionLine = `Q.${i + 1} ${q.question}`;
+            const questionLine = `Q.${i + 1} ${q.question} [${q.type}]`;
             const splitQuestion = doc.splitTextToSize(questionLine, 180);
             doc.text(splitQuestion, 10, y);
             y += (splitQuestion.length * 7);
 
-            q.options.forEach((opt, idx) => {
-                if (y > pageHeight - 20) { doc.addPage(); y = 10; }
-                const label = String.fromCharCode(65 + idx);
-                doc.text(`${label}. ${opt}`, 15, y);
-                y += 6;
-            });
+            if (q.type === 'text') {
+                doc.text("[Short Answer Space]", 15, y);
+                y += 10;
+            } else if (q.type === 'paragraph') {
+                doc.text("[Long Answer Space]", 15, y);
+                y += 15;
+            } else if ((q.type === 'radio' || q.type === 'checkbox') && q.options) {
+                q.options.forEach((opt, idx) => {
+                    if (y > pageHeight - 20) { doc.addPage(); y = 10; }
+                    const label = String.fromCharCode(65 + idx);
+                    doc.text(`${label}. ${opt}`, 15, y);
+                    y += 6;
+                });
+            }
 
-            if (withAnswers) {
+            if (withAnswers && (q.type === 'radio') && typeof q.correct_option_index === 'number') {
                 if (y > pageHeight - 20) { doc.addPage(); y = 10; }
                 const correctOpt = q.options[q.correct_option_index];
                 const correctLabel = String.fromCharCode(65 + q.correct_option_index);
