@@ -1,177 +1,251 @@
-# Google Forms Automation (Next.js)
+# 🚀 Prompt → Google Form (Agentic AI)
 
-This is a production-ready Next.js application that uses AI to generate Google Forms. It allows users to create quizzes and forms instantly using natural language prompts, leveraging the power of Google Gemini and the Google Forms API.
+![Stars](https://img.shields.io/github/stars/sadiqabbas192/gforms)
+![Forks](https://img.shields.io/github/forks/sadiqabbas192/gforms)
+![License](https://img.shields.io/github/license/sadiqabbas192/gforms)
 
-## 🧠 Supported Prompting Capabilities
+Create **Google Forms instantly using natural language prompts**.  
+This open-source **Agentic AI project** converts plain English instructions into **fully functional Google Forms quizzes (MCQs)** — created **directly in your Google account**.
 
-This app supports **natural-language prompts** to generate **Google Forms quizzes (MCQs)**.
-All forms are created **directly in your Google account**.
-
-Below are the **supported ways you can prompt the system**.
+🔗 **Live Demo (Vercel):** https://gforms.vercel.app  
+⭐ **Star the repo if you find it useful — it really helps!**
 
 ---
 
+## ✨ Why This Project?
+
+Most AI tools stop at *text generation*.
+
+This project goes further by demonstrating **Agentic AI**:
+- The AI **understands intent**
+- Makes **structured decisions**
+- Takes **real actions** using APIs
+- Produces a **usable artifact** (Google Form)
+
+👉 From **prompt → action → result**, not just chat.
+
+---
+
+## 🧠 What This App Can Do
+
+- Generate **MCQ-based quizzes** using natural language
+- Automatically enable **Quiz mode**
+- Guarantee **exact question counts**
+- Mix **user-provided questions + AI-generated questions**
+- Randomly select questions for variation
+- Create forms **directly inside your Google account**
+
+✅ Built for **teachers, trainers, students, and AI builders**
+
+---
+
+## 🧩 Supported Prompting Capabilities
+
 ### 1️⃣ Basic Quiz Creation
 
-Create a simple MCQ-based quiz.
-
-**Example prompt:**
-
-```
+**Prompt**
+```text
 Create a 10 question MCQ quiz on Python basics
-```
+````
 
-**What happens:**
+**Result**
 
-* AI generates 10 MCQs
-* Each question has 4 options
-* Quiz mode is enabled
-* Each question carries 1 mark
-* Form is created in your Google account
+* 10 MCQs
+* 4 options per question
+* 1 correct answer
+* Quiz mode enabled
+* Form created in Google Forms
 
 ---
 
 ### 2️⃣ Topic + Difficulty Based Quiz
 
-You can mention topic and difficulty level.
+**Prompt**
 
-**Example prompt:**
-
-```
+```text
 Create a 15 question quiz on DBMS with easy to medium difficulty
 ```
 
-**What happens:**
-
-* Questions match the given subject
-* Difficulty stays easy to medium
-* Language remains simple and clear
+✔ Difficulty respected
+✔ Language kept simple
 
 ---
 
-### 3️⃣ Generate More Questions Than Needed (Random Selection)
+### 3️⃣ Random Question Selection (Variation)
 
-You can ask the system to **generate many questions** but **add only some of them randomly** to the Google Form.
+**Prompt**
 
-**Example prompt:**
-
-```
+```text
 Create 50 MCQ questions on Operating Systems and add 30 questions randomly to the form
 ```
 
-**What happens:**
-
-* AI generates 50 questions
-* System randomly selects 30 questions
-* Only the selected 30 are added to the Google Form
-* Random selection is handled safely by the backend
-
-✅ Useful when you want **variation** each time you create a form.
+✔ AI generates 50
+✔ Backend safely selects 30
+✔ Each run produces variation
 
 ---
 
-### 4️⃣ Use Your Own MCQs + Auto Complete Remaining Questions
+### 4️⃣ Use Your Own MCQs + Auto-Complete
 
-You can provide **some MCQs yourself**, and let the system generate the rest.
+**Prompt**
 
-**Example prompt:**
-
-```
-I already have 10 MCQs on Computer Networks. Create the remaining questions so that the total number of questions is 25.
+```text
+I already have 10 MCQs on Computer Networks. Create the remaining questions so the total number of questions is 25.
 ```
 
-**What happens:**
-
-* Your provided questions are **always included**
-* AI generates only the remaining required questions
-* Total questions in the final form = 25
-* Your original questions are **never modified or removed**
-
-✅ Ideal for teachers who already prepared part of the quiz.
+✔ Your questions are preserved
+✔ AI fills only the missing ones
+✔ Final count is guaranteed
 
 ---
 
-### 5️⃣ Fixed Total Question Count (Guaranteed)
+### 5️⃣ Guaranteed Total Question Count
 
-Whenever you specify a total number of questions, the system **guarantees** the final form matches that count exactly.
+**Examples**
 
-**Example prompts:**
-
-```
+```text
 Create a quiz with exactly 20 MCQs on Data Structures
 ```
 
-```
+```text
 I have 5 MCQs already. Generate the rest so the total is 15.
 ```
 
+✔ System always enforces exact totals
+
 ---
 
-## 🚫 What Is NOT Supported
+## 🚫 What Is NOT Supported (By Design)
 
-To keep the system reliable and safe, the following are **not supported**:
+To keep the system **reliable and predictable**, these are intentionally blocked:
 
-* Non-MCQ question types (short answer, paragraph, etc.)
-* Less or more than 4 options per question
+* Non-MCQ questions
+* More or less than 4 options
 * Multiple correct answers
 * Negative marking
-* Subjective or opinion-based questions
-* Non-educational or unrelated prompts
+* Subjective or opinion-based prompts
+* Non-educational content
 
-If an unsupported request is made, the system will return an error.
-
----
-
-## ✅ Summary of Capabilities
-
-| Feature | Supported |
-| :--- | :--- |
-| Basic MCQ quiz | ✅ |
-| Random question selection | ✅ |
-| User-provided MCQs | ✅ |
-| Guaranteed total question count | ✅ |
-| Quiz mode enabled | ✅ |
-| Google account form creation | ✅ |
+Unsupported requests return **clear validation errors**.
 
 ---
 
-## Setup
+## ✅ Feature Summary
 
-1. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
+| Feature                      | Supported |
+| ---------------------------- | --------- |
+| MCQ quiz generation          | ✅         |
+| Random question selection    | ✅         |
+| User-provided MCQs           | ✅         |
+| Guaranteed question count    | ✅         |
+| Quiz mode enabled            | ✅         |
+| Google account form creation | ✅         |
 
-2. **Environment Variables:**
-   - Copy `env_template.txt` to `.env.local`:
-     ```bash
-     cp env_template.txt .env.local
-     ```
-   - Fill in your Google Cloud credentials and Gemini API Key.
-   - Set a secure random string for `APP_API_KEY` and `NEXT_PUBLIC_APP_API_KEY`.
+---
 
-3. **Google OAuth Setup:**
-   - Go to Google Cloud Console.
-   - Create OAuth 2.0 Credentials.
-   - Authorized Redirect URI: `http://localhost:3010/api/auth/google` (matches strict structure).
-   - Enable APIs: `Google Forms API`, `Google Drive API`.
+## 🏗️ Architecture Overview
 
-4. **Run Development Server:**
-   ```bash
-   npm run dev
-   ```
+### Frontend
 
-## Architecture
+* `app/page.js` – UI (Next.js App Router)
 
-- **Frontend:** `app/page.js` (Client-side UI).
-- **Auth:** `app/api/auth/google/route.js` (Manual OAuth flow).
-- **Backend:** `app/api/generate-form/route.js` (Orchestrates Gemini + Forms API).
-- **Libraries:**
-  - `lib/gemini.js`: Generates JSON.
-  - `lib/googleForms.js`: Creates/Updates Forms.
-  - `lib/validateJson.js`: Ensures data integrity.
+### Authentication
 
-## Notes
-- Strict adherence to spec.
-- No TypeScript.
-- Tailwind CSS used for styling.
+* `app/api/auth/google/route.js` – Manual OAuth flow
+
+### Backend (Agent Orchestration)
+
+* `app/api/generate-form/route.js` – Gemini + Google Forms API controller
+
+### Core Libraries
+
+* `lib/gemini.js` – Structured JSON generation
+* `lib/googleForms.js` – Google Forms creation & updates
+* `lib/validateJson.js` – Strict schema validation
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 2️⃣ Environment Variables
+
+```bash
+cp env_template.txt .env.local
+```
+
+Fill in:
+
+* Google OAuth credentials
+* Gemini API Key
+* Secure values for:
+
+  * `APP_API_KEY`
+  * `NEXT_PUBLIC_APP_API_KEY`
+
+---
+
+### 3️⃣ Google OAuth Configuration
+
+* Create OAuth 2.0 credentials
+* Authorized Redirect URI:
+
+```text
+http://localhost:3010/api/auth/google
+```
+
+* Enable APIs:
+
+  * Google Forms API
+  * Google Drive API
+
+---
+
+### 4️⃣ Run Locally
+
+```bash
+npm run dev
+```
+
+---
+
+## 🧪 Design Notes
+
+* Strict schema validation (no hallucinated forms)
+* Deterministic question counts
+* No TypeScript (intentional simplicity)
+* Tailwind CSS for styling
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+* Ideas
+* Issues
+* Pull requests
+* Improvements to agent logic
+
+⭐ If this project helped you, please **star the repository**
+🍴 Fork it and build on top of it!
+
+---
+
+## 📌 Future Enhancements
+
+* Support non-MCQ questions
+* Analytics on generated forms
+* Prompt templates
+* Multi-language support
+
+---
+
+### Built with ❤️ to explore **Agentic AI beyond chat**
